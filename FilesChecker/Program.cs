@@ -57,7 +57,9 @@ namespace FilesChecker {
                 try {
                     WriteLineWithColor($"Computing {path} ...", ConsoleColor.DarkGray);
 
-                    string md5Code = GetMD5HashCode(md5Hash, new FileStream(path, FileMode.Open));
+                    Stream file = new FileStream(path, FileMode.Open);
+                    string md5Code = GetMD5HashCode(md5Hash, file);
+                    file.Close();
 
                     if (!hashCodeDict.ContainsKey(md5Code)) {
                         hashCodeDict.Add(md5Code, 1);
